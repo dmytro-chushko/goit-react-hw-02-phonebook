@@ -1,6 +1,9 @@
 import { Component } from 'react';
 
 import ContactForm from './ContactForm';
+import ContactItem from './ContactItem';
+import ContactList from './ContactList';
+import Filter from './Filter';
 
 export default class App extends Component {
   state = {
@@ -18,8 +21,18 @@ export default class App extends Component {
   };
 
   handleSubmit = (id, name, number) => {
+    if (this.state.contacts.find(contact => contact.name === name)) {
+      alert('This name allready added');
+      return;
+    }
     this.setState(({ contacts }) => ({
       contacts: [{ id, name, number }, ...contacts],
+    }));
+  };
+
+  handleDelete = id => {
+    this.setState(({ contacts }) => ({
+      contacts: contacts.filter(contact => contact.id !== id),
     }));
   };
 
@@ -34,22 +47,14 @@ export default class App extends Component {
       <div>
         <h1>Phonebook</h1>
         <ContactForm onSubmit={this.handleSubmit} />
-        <label htmlFor={this.inputFilterId}>Find contacts by name</label>
-        <input
-          id={this.inputFilterId}
-          type="text"
-          value={this.state.filter}
-          name="filter"
-          onChange={this.handleChange}
-        />
+        <Filter onChange={this.handleChange} filter={this.state.filter} />
         <h2>Contacts</h2>
-        <ul>
-          {this.getVisibleContacts().map(({ id, name, number }) => (
-            <li key={id}>
-              {name}: {number}
-            </li>
-          ))}
-        </ul>
+        <ContactList>
+          <ContactItem
+            getContacts={this.getVisibleContacts()}
+            onDelete={this.handleDelete}
+          />
+        </ContactList>
       </div>
     );
   }

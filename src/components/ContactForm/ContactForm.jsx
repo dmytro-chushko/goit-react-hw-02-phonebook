@@ -9,7 +9,6 @@ export default class ContactForm extends Component {
 
   inputNameId = nanoid();
   inputNumberId = nanoid();
-  inputFilterId = nanoid();
 
   reset() {
     this.setState({
