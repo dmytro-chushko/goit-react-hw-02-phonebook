@@ -1,0 +1,16 @@
+.label,
+.input {
+  display: block;
+}
+
+.label {
+  margin-bottom: 10px;
+
+  font-weight: 700;
+}
+
+.input {
+  height: 20px;
+  margin-bottom: 20px;
+  border: solid 1px grey;
+}

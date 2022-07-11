@@ -1,4 +1,5 @@
 import { Component } from 'react';
+import css from './App.module.css';
 
 import ContactForm from './ContactForm';
 import ContactItem from './ContactItem';
@@ -37,18 +38,19 @@ export default class App extends Component {
   };
 
   getVisibleContacts() {
+    const filter = this.state.filter.toLowerCase();
     return this.state.contacts.filter(contact =>
-      contact.name.includes(this.state.filter)
+      contact.name.toLowerCase().includes(filter)
     );
   }
 
   render() {
     return (
-      <div>
-        <h1>Phonebook</h1>
+      <div className={css.container}>
+        <h1 className={css.title}>Phonebook</h1>
         <ContactForm onSubmit={this.handleSubmit} />
+        <h2 className={css.title}>Contacts</h2>
         <Filter onChange={this.handleChange} filter={this.state.filter} />
-        <h2>Contacts</h2>
         <ContactList>
           <ContactItem
             getContacts={this.getVisibleContacts()}

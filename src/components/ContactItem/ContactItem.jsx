@@ -1,9 +1,15 @@
+import css from './ContactItem.module.css';
+
 const ContactItem = ({ getContacts, onDelete }) => (
   <>
     {getContacts.map(({ id, name, number }) => (
-      <li key={id}>
+      <li className={css.item} key={id}>
         {name}: {number}
-        <button type="button" onClick={() => onDelete(id)}>
+        <button
+          className={css.button}
+          type="button"
+          onClick={() => onDelete(id)}
+        >
           Delete
         </button>
       </li>
