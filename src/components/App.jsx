@@ -1,9 +1,7 @@
 import { Component } from 'react';
-import { getVisibleContacts } from 'helpers/getVisibleContacts';
 import css from './App.module.css';
 
 import ContactForm from './ContactForm';
-import ContactItem from './ContactItem';
 import ContactList from './ContactList';
 import Filter from './Filter';
 
@@ -23,7 +21,12 @@ export default class App extends Component {
   };
 
   handleSubmit = (id, name, number) => {
-    if (this.state.contacts.find(contact => contact.name === name)) {
+    const normalizeName = name.toLowerCase();
+    if (
+      this.state.contacts.find(
+        contact => contact.name.toLowerCase() === normalizeName
+      )
+    ) {
       alert('This name allready added');
       return;
     }
@@ -45,15 +48,11 @@ export default class App extends Component {
         <ContactForm onSubmit={this.handleSubmit} />
         <h2 className={css.title}>Contacts</h2>
         <Filter onChange={this.handleChange} filter={this.state.filter} />
-        <ContactList>
-          <ContactItem
-            getContacts={getVisibleContacts(
-              this.state.filter,
-              this.state.contacts
-            )}
-            onDelete={this.handleDelete}
-          />
-        </ContactList>
+        <ContactList
+          contacts={this.state.contacts}
+          filter={this.state.filter}
+          onDeleteContact={this.handleDelete}
+        />
       </div>
     );
   }
