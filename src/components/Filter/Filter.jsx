@@ -1,4 +1,5 @@
 import { nanoid } from 'nanoid';
+import PropTypes from 'prop-types';
 import css from './Filter.module.css';
 
 const Filter = ({ onChange, filter }) => {
@@ -6,9 +7,7 @@ const Filter = ({ onChange, filter }) => {
 
   return (
     <>
-      <label className={css.label} htmlFor={inputFilterId}>
-        Find contacts by name
-      </label>
+      <label htmlFor={inputFilterId}>Find contacts by name</label>
       <input
         id={inputFilterId}
         className={css.input}
@@ -19,6 +18,11 @@ const Filter = ({ onChange, filter }) => {
       />
     </>
   );
+};
+
+Filter.propTypes = {
+  onChange: PropTypes.func.isRequired,
+  filter: PropTypes.string.isRequired,
 };
 
 export default Filter;

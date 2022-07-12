@@ -1,4 +1,5 @@
 import { Component } from 'react';
+import { getVisibleContacts } from 'helpers/getVisibleContacts';
 import css from './App.module.css';
 
 import ContactForm from './ContactForm';
@@ -37,13 +38,6 @@ export default class App extends Component {
     }));
   };
 
-  getVisibleContacts() {
-    const filter = this.state.filter.toLowerCase();
-    return this.state.contacts.filter(contact =>
-      contact.name.toLowerCase().includes(filter)
-    );
-  }
-
   render() {
     return (
       <div className={css.container}>
@@ -53,7 +47,10 @@ export default class App extends Component {
         <Filter onChange={this.handleChange} filter={this.state.filter} />
         <ContactList>
           <ContactItem
-            getContacts={this.getVisibleContacts()}
+            getContacts={getVisibleContacts(
+              this.state.filter,
+              this.state.contacts
+            )}
             onDelete={this.handleDelete}
           />
         </ContactList>

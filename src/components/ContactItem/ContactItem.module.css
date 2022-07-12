@@ -4,12 +4,3 @@
   align-items: center;
   padding: 5px;
 }
-
-.button {
-  background-color: grey;
-  border: none;
-  border-radius: 5px;
-  padding: 5px;
-
-  color: #fff;
-}
